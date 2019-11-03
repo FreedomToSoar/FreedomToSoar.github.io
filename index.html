@@ -1,10 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>韩J的博客</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            background: url(img/kongbu2.png) no-repeat;
+            background-size: 100% 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #box {
+            width: 60%;
+            height: 33%;
+            margin: 215px auto;
+            background: rgb(0, 0, 0, .1);
+        }
+
+        #btn {
+            position: absolute;
+            left: 68px;
+            bottom: 624px;
+            color: rgb(0, 0, 0, .3);
+        }
+
+        #li3,
+        #li4 {
+            width: 40%;
+            height: 80%;
+            background: rgb(0, 0, 0, 0.1);
+            list-style: none;
+            float: left;
+            margin: 21px 0px;
+            font-size: 72px;
+            text-align: center;
+            line-height: 220%;
+        }
+
+        #li5 {
+            position: relative;
+            top: 48%;
+            width: 20%;
+            height: 0;
+            border-top: rgb(136, 3, 3, .5) solid 5px;
+            list-style: none;
+            float: left;
+        }
+
+        #li4 {
+            float: right;
+        }
+
+        #btn2 {
+            position: absolute;
+            left: 68px;
+            bottom: 624px;
+            display: none;
+        }
+
+        .div11 {
+            background: url(img/yinsin1.png);
+            background-size: 100% 100%;
+            width: 100%;
+            height: 100%
+        }
+
+        .div12 {
+            background: url(img/yinsen1.png);
+            background-size: 100% 100%;
+            width: 100%;
+            height: 100%
+        }
+
+        #div11 {
+            width: 100%;
+            height: 100%;
+            color: rgba(133, 8, 8, 0.2);
+            font-size: 200px;
+            position: absolute;
+            display: none;
+        }
+
+        #div11 p {
+            width: 50%;
+            height: 50%;
+            position: absolute;
+            left: 25%;
+            bottom: 40%;
+        }
+
+        #lii {
+            width: 702px;
+            border-bottom: solid rgb(136, 3, 3, .5) 5px;
+            position: absolute;
+            left: 25%;
+            bottom: 70%;
+            list-style: none;
+        }
+
+        #lii div {
+            width: 5%;
+            height: 18px;
+            background: rgb(136, 3, 3, .7);
+            position: absolute;
+            left: 0px;
+            bottom: -10px;
+            transition: 1s;
+        }
+    </style>
 </head>
-<body>
-    <button>11</button>
+
+<body id="body">
+    <ul id="box">
+        <li id="li3">00 : 00</li>
+        <li id="li5"></li>
+        <li id="li4">00 : 00</li>
+        <li id="lii">
+            <div id="div2">嘿嘿</div>
+        </li>
+    </ul>
+    <div id="btn">点击设置时间</div>
+    <div id="btn2">
+        <input type="text" value="年:月:日:时:分:秒" id="input"><button id="butt">开始</button>
+    </div>
+    <div id="div11">
+        <p>你的时间到了</p>
+    </div>
+    <script>
+        let sj;
+        let newsj;
+        let d;
+        let sj2;
+        btn.onclick = function () {
+            btn2.style.display = 'block'
+        }
+        butt.onclick = function () {
+            btn2.style.display = 'none'
+            sj = input.value
+            sj2 = sj.slice(length - 5)
+            li4.innerHTML = sj2
+            ary = sj.split('')
+            ary.splice(ary.lastIndexOf(':'), 1, 'A')
+            ary.splice(ary.lastIndexOf(':'), 1, 'A')
+            sj = ary.join('').split(':').join(' ').replace('A', ':').replace('A', ':')
+            newsj = new Date(sj)
+            div2.style.left = '0px'
+        }
+        setInterval(() => {
+            d = new Date
+            let m = d.getMinutes()
+            let s = d.getSeconds()
+            if (m < 10) {
+                m = '0' + m
+            }
+            if (s < 10) {
+                s = '0' + s
+            }
+            let aa = m + ':' + s
+            li3.innerHTML = aa
+            if (newsj - d <= 0) {
+                body.className = 'div11'
+                box.style.display = 'none'
+                div11.style.display = 'block'
+            } else if (aa === sj2) {
+                console.log(1)
+                setTimeout(() => {
+                    box.style.display = 'none'
+                    body.className = 'div12'
+                    setTimeout(() => {
+                        box.style.display = 'block'
+                        body.className = ''
+                    }, 600)
+                }, 0)
+            }
+            if (newsj) {
+                let ob1 = (newsj - d) / 1000
+                let ob2 = (667 - parseFloat(div2.style.left)) / ob1
+                div2.style.left = parseFloat(div2.style.left) + ob2 + 'px'
+            }
+        }, 1000)
+
+
+    </script>
 </body>
+
 </html>
